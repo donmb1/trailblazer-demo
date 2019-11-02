@@ -1,10 +1,10 @@
-- if cookies[:cart]
-  Cart with ID #{cookies[:cart]} initiated
+- if @cart
+  Cart with ID #{@cart.id} initiated
 
-- if @cart.line_items.present?
-  %ul
-    - @cart.line_items.each do |li|
-      %li #{li.product.name} | QTY: 1
+  - if @cart.line_items.present?
+    %ul
+      - @cart.line_items.each do |li|
+        %li #{li.product.name} | QTY: #{li.qty}
 
 
 %h2 Awesome shop products

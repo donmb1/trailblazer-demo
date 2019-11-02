@@ -2,15 +2,8 @@
 
 module Cart::Operations
   class CreateLineItem < BaseOperation
-    step :init_cart
     step :init_product
     step :add_line_item_to_cart
-
-    def init_cart(ctx, params:, **)
-      ctx[:cart] = Cart.find_by_id params[:cart_id]
-      return true if ctx[:cart]
-      return false
-    end
 
     def init_product(ctx, params:, **)
       ctx[:product] = Product.find_by_id params[:product_id]
@@ -18,8 +11,10 @@ module Cart::Operations
       return false
     end
 
-    def add_line_item_to_cart(ctx, **)
-      ctx[:line_item] = LineItem.create(cart: ctx[:cart], product: ctx[:product])
+    def add_line_item_to_cart(ctx, cart:, **)
+      ctx[:line_item] = LineItem.find_or_create_by(cart: cart, product: ctx[:product])
+      ctx[:line_item].qty += 1
+      ctx[:line_item].save!
       return true
     end
 

@@ -1,12 +1,10 @@
 class ApplicationController < ActionController::Base
 
-  before_action :init_cart
+  before_action :set_cart
 
-private
-  def init_cart
-    if cookies[:cart]
-      @cart = Cart.find_by_id cookies[:cart]
-    end
+  def set_cart
+    result = ::Cart::Operations::FindOrCreate.(cookies: cookies)
+    @cart = result[:model] if result.success?
   end
 
 end
