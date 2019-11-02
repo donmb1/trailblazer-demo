@@ -1,6 +1,6 @@
 # README
 
-Trailblazer Demo app demonstrating Trailblazer 2.1 activities and cells within a simple web-shop system.
+Trailblazer Demo app demonstrating Trailblazer 2.1 operations/activities(?) within a simple web-shop system.
 Also providing an API endpoint to create and update line-items.
 
 ## Install postgres database
