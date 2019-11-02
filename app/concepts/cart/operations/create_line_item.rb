@@ -1,5 +1,4 @@
-# creates a new cart if no cart cookie is available
-# assigns new cart model
+# creates a new line item in a given cart
 
 module Cart::Operations
   class CreateLineItem < BaseOperation
