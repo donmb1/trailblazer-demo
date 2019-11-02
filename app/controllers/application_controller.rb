@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
 
   def set_cart
     result = ::Cart::Operations::FindOrCreate.(cookies: cookies)
-    @cart = result[:model] if result.success?
+
+    if result.success?
+      @cart = result[:model]
+      cookies[:cart] = @cart.id if !cookies[:cart]
+    end
   end
 
 end
