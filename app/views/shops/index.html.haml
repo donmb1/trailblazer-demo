@@ -1,0 +1,14 @@
+- if cookies[:cart]
+  Cart with ID #{cookies[:cart]} initiated
+
+- if @cart.line_items.present?
+  %ul
+    - @cart.line_items.each do |li|
+      %li #{li.product.name} | QTY: 1
+
+
+%h2 Awesome shop products
+
+%ul
+  - @products.each do |product|
+    %li #{product.name} only #{product.price} | #{link_to 'Add to cart', cart_create_line_item_path(cookies[:cart], product_id: product.id)}
