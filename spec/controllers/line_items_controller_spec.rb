@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe CartsController, :type => :controller do
+RSpec.describe LineItemsController, :type => :controller do
 
-  describe 'GET #create_line_item' do
+  describe 'POST #create' do
 
     before do
       @cart = ::Cart::Operations::FindOrCreate.(cookies: cookies)[:model]
@@ -13,15 +13,15 @@ RSpec.describe CartsController, :type => :controller do
 
     context 'for no line_items exist' do
       it 'should add a line item to the cart' do
-        expect{ get :create_line_item, params: { cart_id: @cart.id, product_id: product.id } }.to change{@cart.line_items.count}.by(1)
+        expect{ post :create, params: { cart_id: @cart.id, product_id: product.id } }.to change{@cart.line_items.count}.by(1)
       end
     end
 
     context 'for existing line items' do
-      let!(:line_item) { ::Cart::Operations::CreateLineItem.(params: { product_id: product.id }, cart: @cart)[:model] }
+      let!(:line_item) { ::LineItem::Operations::Create.(params: { product_id: product.id }, cart: @cart)[:model] }
 
       it 'should set the last line item qty to 2' do
-        get :create_line_item, params: { cart_id: @cart.id, product_id: product.id }
+        post :create, params: { cart_id: @cart.id, product_id: product.id }
         expect(LineItem.last.qty).to eq 2
       end
     end

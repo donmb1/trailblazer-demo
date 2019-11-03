@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :carts, only: [] do
-    get :create_line_item
-  end
+  resources :line_items, only: [:create, :destroy]
 
   root 'shops#index'
 

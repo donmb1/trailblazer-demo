@@ -1,7 +1,7 @@
 # creates a new line item in a given cart
 
-module Cart::Operations
-  class CreateLineItem < BaseOperation
+module LineItem::Operations
+  class Create < BaseOperation
     step :init_product
     step :add_line_item_to_cart
 
